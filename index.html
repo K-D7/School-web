@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Greenfield Academy | Excellence in Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#1B2A4A;
+  --navy-dark:#111D33;
+  --gold:#B8962E;
+  --gold-light:#D4AF5A;
+  --cream:#F8F5EF;
+  --white:#FFFFFF;
+  --grey:#6B7280;
+  --light:#EEF0F4;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',sans-serif;background:var(--white);color:var(--navy);overflow-x:hidden}
+
+/* TOP BAR */
+.topbar{background:var(--navy-dark);padding:8px 40px;display:flex;justify-content:space-between;align-items:center}
+.topbar-left{font-size:13px;color:#aab;letter-spacing:.3px}
+.topbar-right{display:flex;gap:20px}
+.topbar-right a{color:#aab;text-decoration:none;font-size:13px;transition:color .2s}
+.topbar-right a:hover{color:var(--gold-light)}
+
+/* NAV */
+nav{background:var(--navy);padding:0 40px;display:flex;justify-content:space-between;align-items:center;height:70px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav-brand{display:flex;align-items:center;gap:14px}
+.nav-crest{width:44px;height:44px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy)}
+.nav-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--white);line-height:1.1}
+.nav-name span{display:block;font-size:11px;font-weight:400;color:var(--gold-light);letter-spacing:.5px;font-family:'Source Sans 3',sans-serif}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{color:#ccd;text-decoration:none;font-size:14px;font-weight:500;padding:0 18px;height:70px;display:flex;align-items:center;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.3px}
+.nav-links a:hover{color:var(--white);border-bottom-color:var(--gold)}
+.nav-links a.active{color:var(--white);border-bottom-color:var(--gold)}
+
+/* HERO SLIDER */
+.hero{position:relative;height:78vh;min-height:520px;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;align-items:center;opacity:0;transition:opacity .8s ease}
+.slide.active{opacity:1}
+.slide-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.slide-bg-1{background:linear-gradient(135deg,#1B2A4A 0%,#2d4270 50%,#1a3060 100%)}
+.slide-bg-2{background:linear-gradient(135deg,#2a1b4a 0%,#3d2870 50%,#2a1a60 100%)}
+.slide-bg-3{background:linear-gradient(135deg,#1a3a2a 0%,#2a5040 50%,#1a3830 100%)}
+.slide-pattern{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.6) 0%,rgba(0,0,0,.1) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 60px;max-width:720px}
+.hero-eyebrow{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:600;padding:5px 14px;letter-spacing:1.5px;margin-bottom:22px;text-transform:uppercase}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,6vw,72px);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:18px}
+.hero p{font-size:17px;color:rgba(255,255,255,.8);line-height:1.7;max-width:480px;margin-bottom:36px;font-weight:300}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--navy);padding:14px 32px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.5px;transition:background .2s}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-outline-white{border:1.5px solid rgba(255,255,255,.5);color:var(--white);padding:14px 32px;font-size:14px;font-weight:500;text-decoration:none;transition:border-color .2s}
+.btn-outline-white:hover{border-color:var(--white)}
+.hero-indicators{position:absolute;bottom:28px;left:60px;display:flex;gap:10px;z-index:2}
+.indicator{width:28px;height:3px;background:rgba(255,255,255,.3);cursor:pointer;transition:background .3s}
+.indicator.active{background:var(--gold)}
+.hero-stat-bar{position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:2;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:28px 32px;display:flex;flex-direction:column;gap:24px}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--gold-light);line-height:1}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.5px}
+
+/* QUICK LINKS BAR */
+.quick-bar{background:var(--gold);display:flex;overflow-x:auto}
+.quick-link{display:flex;align-items:center;gap:10px;padding:16px 28px;color:var(--navy);text-decoration:none;font-size:14px;font-weight:600;border-right:1px solid rgba(0,0,0,.1);white-space:nowrap;transition:background .2s;flex-shrink:0}
+.quick-link:hover{background:var(--gold-light)}
+.quick-link-icon{font-size:18px}
+
+/* MAIN LAYOUT */
+.main-grid{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1400px;margin:0 auto;padding:50px 40px}
+@media(max-width:1024px){.main-grid{grid-template-columns:1fr;padding:40px 24px}}
+
+/* WELCOME */
+.welcome-section{padding-right:48px}
+@media(max-width:1024px){.welcome-section{padding-right:0}}
+.section-label{font-size:12px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,40px);font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.15}
+.welcome-section p{font-size:16px;color:var(--grey);line-height:1.8;margin-bottom:16px;font-weight:300}
+.headmaster-sig{margin-top:28px;padding-top:24px;border-top:1px solid #e0e0e0;display:flex;align-items:center;gap:16px}
+.sig-avatar{width:52px;height:52px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700}
+.sig-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--navy)}
+.sig-title{font-size:13px;color:var(--grey)}
+
+/* PILLARS */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e0e0e0;margin:48px 0 0}
+.pillar{background:var(--cream);padding:32px 24px;text-align:center}
+.pillar-icon{font-size:32px;margin-bottom:14px;display:block}
+.pillar-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.pillar p{font-size:14px;color:var(--grey);line-height:1.6}
+
+/* SIDEBAR */
+.sidebar{}
+.sidebar-card{border:1px solid #ddd;margin-bottom:20px;overflow:hidden}
+.sidebar-card-header{background:var(--navy);padding:14px 18px;font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--white)}
+.sidebar-links{list-style:none}
+.sidebar-links li{border-bottom:1px solid #eee}
+.sidebar-links a{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;text-decoration:none;color:var(--navy);font-size:14px;font-weight:500;transition:background .15s}
+.sidebar-links a:hover{background:var(--cream);color:var(--gold)}
+.sidebar-links a::after{content:'›';color:var(--gold);font-size:18px}
+.sidebar-news{}
+.news-item{padding:16px 18px;border-bottom:1px solid #eee}
+.news-date{font-size:11px;color:var(--gold);font-weight:600;letter-spacing:.5px;margin-bottom:4px}
+.news-title{font-size:14px;font-weight:500;color:var(--navy);line-height:1.4}
+
+/* STATS BAND */
+.stats-band{background:var(--navy);padding:56px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat-item{text-align:center;padding:0 20px;border-right:1px solid rgba(255,255,255,.1)}
+.stat-item:last-child{border-right:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:var(--gold-light);line-height:1}
+.stat-desc{font-size:13px;color:rgba(255,255,255,.6);margin-top:6px;letter-spacing:.3px}
+
+/* ACADEMICS */
+.academics{padding:72px 40px;background:var(--cream)}
+.academics-inner{max-width:1400px;margin:0 auto}
+.academics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.acad-card{background:var(--white);padding:28px;border-top:3px solid var(--gold);transition:transform .2s,box-shadow .2s}
+.acad-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.acad-icon{font-size:28px;margin-bottom:14px;display:block}
+.acad-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.acad-card p{font-size:14px;color:var(--grey);line-height:1.6}
+
+/* ADMISSIONS CTA */
+.admissions-cta{background:var(--navy-dark);padding:72px 40px;text-align:center}
+.admissions-cta h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--white);margin-bottom:14px}
+.admissions-cta p{font-size:16px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 36px;font-weight:300}
+
+/* FOOTER */
+footer{background:#0D1828;padding:48px 40px 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1400px;margin:0 auto 40px}
+.footer-brand h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--white);margin-bottom:8px}
+.footer-brand p{font-size:13px;color:#667;line-height:1.6;margin-bottom:16px}
+.footer-socials{display:flex;gap:10px}
+.social-btn{width:34px;height:34px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:14px;color:#aab;text-decoration:none;transition:background .2s}
+.social-btn:hover{background:var(--gold)}
+.footer-col h4{font-size:13px;font-weight:600;color:var(--gold-light);letter-spacing:.5px;margin-bottom:14px;text-transform:uppercase}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col a{color:#667;text-decoration:none;font-size:13px;transition:color .2s}
+.footer-col a:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid #1e2e48;padding-top:20px;text-align:center;font-size:12px;color:#445;max-width:1400px;margin:0 auto}
+
+@media(max-width:768px){
+  .topbar{display:none}
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero-content{padding:0 24px}
+  .hero-stat-bar{display:none}
+  .stats-band{grid-template-columns:repeat(2,1fr);gap:1px;background:#eee;padding:40px 24px}
+  .stat-item{background:var(--navy);padding:20px}
+  .academics-grid{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .quick-bar{flex-wrap:nowrap}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">12 Scholar Road, Sandton, Johannesburg 2196 &nbsp;|&nbsp; +27 (0)11 000 1234</div>
+  <div class="topbar-right">
+    <a href="#">Parent Portal</a>
+    <a href="#">Staff Login</a>
+    <a href="#">School Shop</a>
+    <a href="#">Contact</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-crest">G</div>
+    <div class="nav-name">Greenfield Academy<span>Est. 1948 · Johannesburg</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Admissions</a></li>
+    <li><a href="#">Academic</a></li>
+    <li><a href="#">Sport</a></li>
+    <li><a href="#">Culture</a></li>
+    <li><a href="#">News</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="slide active">
+    <div class="slide-bg slide-bg-1"></div>
+    <div class="slide-pattern"></div>
+    <div class="slide-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Est. 1948 — Johannesburg</div>
+      <h1>Where Legacy Meets Leadership</h1>
+      <p>Greenfield Academy has shaped generations of exceptional South Africans through rigorous academics, character development and a proud tradition of excellence.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-gold">Apply for 2026</a>
+        <a href="#" class="btn-outline-white">Explore the School</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide">
+    <div class="slide-bg slide-bg-2"></div>
+    <div class="slide-pattern"></div>
+    <div class="slide-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Academic Excellence</div>
+      <h1>Minds Built to Lead Nations</h1>
+      <p>Our academic programme challenges every learner to reach their full potential, guided by dedicated educators with a passion for teaching.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-gold">Academic Programme</a>
+        <a href="#" class="btn-outline-white">View Results</a>
+      </div>
+    </div>
+  </div>
+  <div class="slide">
+    <div class="slide-bg slide-bg-3"></div>
+    <div class="slide-pattern"></div>
+    <div class="slide-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Sport & Culture</div>
+      <h1>Champions in Every Arena</h1>
+      <p>From the rugby field to the concert hall, Greenfield learners are encouraged to discover and develop every facet of their remarkable potential.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-gold">Our Programmes</a>
+        <a href="#" class="btn-outline-white">View Gallery</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stat-bar">
+    <div class="hero-stat"><div class="hero-stat-num">98%</div><div class="hero-stat-label">Matric Pass Rate</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">76</div><div class="hero-stat-label">Years of Excellence</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">42+</div><div class="hero-stat-label">Sporting Codes</div></div>
+  </div>
+  <div class="hero-indicators">
+    <div class="indicator active" onclick="goSlide(0)"></div>
+    <div class="indicator" onclick="goSlide(1)"></div>
+    <div class="indicator" onclick="goSlide(2)"></div>
+  </div>
+</div>
+
+<!-- QUICK LINKS -->
+<div class="quick-bar">
+  <a href="#" class="quick-link"><span class="quick-link-icon">📋</span>School Information</a>
+  <a href="#" class="quick-link"><span class="quick-link-icon">📥</span>Downloads</a>
+  <a href="#" class="quick-link"><span class="quick-link-icon">✍️</span>Expression of Interest</a>
+  <a href="#" class="quick-link"><span class="quick-link-icon">📰</span>Latest Newsletter</a>
+  <a href="#" class="quick-link"><span class="quick-link-icon">💼</span>Staff Vacancies</a>
+  <a href="#" class="quick-link"><span class="quick-link-icon">🛒</span>School Shop</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-grid">
+  <div class="welcome-section">
+    <div class="section-label">Welcome Message</div>
+    <h2 class="section-title">A School That Shapes Character as Much as Careers</h2>
+    <p>Greenfield Academy stands as one of Johannesburg's most respected independent schools — a place where academic rigour meets genuine care for every learner who walks through our gates. Since 1948, we have guided thousands of young minds toward their fullest potential.</p>
+    <p>Our ethos is built on four pillars: intellectual curiosity, moral courage, physical vitality and service to community. These values do not simply appear in our prospectus — they live in the daily decisions our learners make, the relationships they build and the leaders they become.</p>
+    <p>Whether your child is drawn to science and mathematics, the arts and culture, or the sporting field, Greenfield provides the environment, the mentorship and the opportunity to flourish.</p>
+    <div class="headmaster-sig">
+      <div class="sig-avatar">JM</div>
+      <div>
+        <div class="sig-name">Mr Jonathan Mokoena</div>
+        <div class="sig-title">Headmaster, Greenfield Academy</div>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><span class="pillar-icon">📚</span><div class="pillar-title">Academic</div><p>Challenging curriculum designed to push every learner beyond perceived limits.</p></div>
+      <div class="pillar"><span class="pillar-icon">⚽</span><div class="pillar-title">Sport</div><p>Over 42 sporting codes offering pathways to provincial and national recognition.</p></div>
+      <div class="pillar"><span class="pillar-icon">🎭</span><div class="pillar-title">Culture</div><p>Music, drama, debate and visual arts programmes of national standing.</p></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Quick Links</div>
+      <ul class="sidebar-links">
+        <li><a href="#">School Information & Policies</a></li>
+        <li><a href="#">Downloads & Forms</a></li>
+        <li><a href="#">Expression of Interest</a></li>
+        <li><a href="#">Contact the School</a></li>
+        <li><a href="#">Staff Vacancies</a></li>
+        <li><a href="#">News & Events</a></li>
+        <li><a href="#">School Shop</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Latest News</div>
+      <div class="sidebar-news">
+        <div class="news-item">
+          <div class="news-date">OCT 2026</div>
+          <div class="news-title">Greenfield takes gold at the Gauteng Schools Athletics Championships</div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">SEP 2026</div>
+          <div class="news-title">Class of 2026 achieves record 98.4% matric pass rate</div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">AUG 2026</div>
+          <div class="news-title">New Science and Technology Centre officially opened</div>
+        </div>
+        <div class="news-item">
+          <div class="news-date">JUL 2026</div>
+          <div class="news-title">Greenfield debate team crowned national champions</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">Contact Us</div>
+      <div class="news-item">
+        <div class="news-date">ADDRESS</div>
+        <div class="news-title">12 Scholar Road, Sandton, Johannesburg 2196</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">PHONE</div>
+        <div class="news-title">+27 (0)11 000 1234</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">EMAIL</div>
+        <div class="news-title">info@greenfieldacademy.co.za</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-item"><div class="stat-num">98%</div><div class="stat-desc">Matric Pass Rate 2025</div></div>
+  <div class="stat-item"><div class="stat-num">1,400</div><div class="stat-desc">Enrolled Learners</div></div>
+  <div class="stat-item"><div class="stat-num">76</div><div class="stat-desc">Years of Excellence</div></div>
+  <div class="stat-item"><div class="stat-num">42+</div><div class="stat-desc">Sporting Codes Offered</div></div>
+</div>
+
+<!-- ACADEMICS -->
+<div class="academics">
+  <div class="academics-inner">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">An Education Without Limits</h2>
+    <div class="academics-grid">
+      <div class="acad-card"><span class="acad-icon">🔬</span><div class="acad-title">Science & Mathematics</div><p>State-of-the-art laboratories and a team of dedicated science educators who inspire a genuine love for discovery.</p></div>
+      <div class="acad-card"><span class="acad-icon">🌍</span><div class="acad-title">Humanities & Languages</div><p>English, Afrikaans, isiZulu and a rich humanities programme developing critical thinkers and effective communicators.</p></div>
+      <div class="acad-card"><span class="acad-icon">💻</span><div class="acad-title">Technology & Computing</div><p>Coding, robotics and digital literacy programmes preparing learners for the careers of tomorrow.</p></div>
+      <div class="acad-card"><span class="acad-icon">🎨</span><div class="acad-title">Arts & Design</div><p>Visual arts, graphic design and music programmes taught by professional artists and musicians.</p></div>
+      <div class="acad-card"><span class="acad-icon">⚽</span><div class="acad-title">Physical Education</div><p>Comprehensive sport programme with coaching pathways to provincial and national representative level.</p></div>
+      <div class="acad-card"><span class="acad-icon">🏛️</span><div class="acad-title">Leadership & Service</div><p>Structured leadership development and community service programmes building empathetic, responsible citizens.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMISSIONS CTA -->
+<div class="admissions-cta">
+  <h2>Begin Your Greenfield Journey</h2>
+  <p>Applications for the 2027 academic year are now open. We invite families who share our values to explore what Greenfield Academy has to offer.</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+    <a href="#" class="btn-gold">Apply Now</a>
+    <a href="#" class="btn-outline-white">Book a School Tour</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Greenfield Academy</h3>
+      <p>Shaping exceptional young South Africans since 1948. A school where legacy, leadership and learning come together.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">f</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">▶</a>
+        <a href="#" class="social-btn">📷</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>School Life</h4>
+      <ul>
+        <li><a href="#">Academic</a></li>
+        <li><a href="#">Sport</a></li>
+        <li><a href="#">Culture</a></li>
+        <li><a href="#">Boarding</a></li>
+        <li><a href="#">Pastoral Care</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Admissions</a></li>
+        <li><a href="#">Policies</a></li>
+        <li><a href="#">Downloads</a></li>
+        <li><a href="#">Staff Vacancies</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">12 Scholar Road, Sandton</a></li>
+        <li><a href="#">+27 (0)11 000 1234</a></li>
+        <li><a href="#">info@greenfieldacademy.co.za</a></li>
+        <li><a href="#">School Shop</a></li>
+        <li><a href="#">Parent Portal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Greenfield Academy. All rights reserved. | Privacy Policy | Terms of Use</div>
+</footer>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const indicators = document.querySelectorAll('.indicator');
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  indicators[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  indicators[current].classList.add('active');
+}
+setInterval(() => goSlide((current + 1) % slides.length), 5000);
+</script>
+</body>
+</html>
